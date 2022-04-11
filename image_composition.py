@@ -128,8 +128,8 @@ class ImageComposition():
         self.silent = args.silent
 
         # Validate the count
-        assert args.count > 0, 'count must be greater than 0'
-        self.count = args.count
+        # assert args.count > 0, 'count must be greater than 0'
+        # self.count = args.count
 
         # Validate the width and height
         assert args.width >= 64, 'width must be greater than 64'
@@ -253,70 +253,76 @@ class ImageComposition():
         # Generates a number of images and creates segmentation masks, then
         # saves a mask_definitions.json file that describes the dataset.
 
-        print(f'Generating {self.count} images with masks...')
+        # print(f'Generating {self.count} images with masks...')
 
         mju = MaskJsonUtils(self.output_dir)
 
         # Create all images/masks (with tqdm to have a progress bar)
-        for i in tqdm(range(self.count)):
+
+        # for i in tqdm(range(self.count)):
             # Randomly choose a background
-            background_path = random.choice(self.backgrounds)
+        # background_path = random.choice(self.backgrounds)
 
-            num_foregrounds = random.randint(1, self.max_foregrounds)
-            foregrounds = []
-            for fg_i in range(num_foregrounds):
-                for super_category in list(self.foregrounds_dict.keys()):
-                    # Randomly choose a foreground
-                    # super_category = random.choice(list(self.foregrounds_dict.keys()))
-                    for category in list(self.foregrounds_dict[super_category].keys()):
-                        # category = random.choice(list(self.foregrounds_dict[super_category].keys()))
-                        # foreground_path = random.choice(self.foregrounds_dict[super_category][category])
-                        for foreground_path in self.foregrounds_dict[super_category][category]:
-                            # print(f'foreground_path={foreground_path}')
+        num_foregrounds = random.randint(1, self.max_foregrounds)
+        foregrounds = []
+        fg_i = 0
+        # for fg_i in range(num_foregrounds):
+        #     print('~~~~~~~~~~~~~~~~~~~~~')
+        for super_category in list(self.foregrounds_dict.keys()):
+            # Randomly choose a foreground
+            # super_category = random.choice(list(self.foregrounds_dict.keys()))
+            print('+++++++++++++++++++')
+            for j, category in enumerate(list(self.foregrounds_dict[super_category].keys())):
+                # category = random.choice(list(self.foregrounds_dict[super_category].keys()))
+                # foreground_path = random.choice(self.foregrounds_dict[super_category][category])
+                print('-----------------')
+                for i, foreground_path in enumerate(self.foregrounds_dict[super_category][category]):
+                    print(f'foreground_path={foreground_path}')
 
-                            # Get the color
-                            mask_rgb_color = self.mask_colors[fg_i]
+                    # Get the color
+                    mask_rgb_color = self.mask_colors[fg_i]
 
-                            foregrounds.append({
-                                    'super_category': super_category,
-                                    'category': category,
-                                    'foreground_path': foreground_path,
-                                    'mask_rgb_color': mask_rgb_color
-                            })
+                    foregrounds = [{
+                            'super_category': super_category,
+                            'category': category,
+                            'foreground_path': foreground_path,
+                            'mask_rgb_color': mask_rgb_color
+                    }]
 
-                            # Compose foregrounds and background
-                            composite, mask = self._compose_images(foregrounds, background_path)
+                    # Compose foregrounds and background
+                    background_path = random.choice(self.backgrounds)
+                    composite, mask = self._compose_images(foregrounds, background_path)
 
-                            # Create the file name (used for both composite and mask)
-                            save_filename = f'{i:0{self.zero_padding}}'  # e.g. 00000023.jpg
+                    # Create the file name (used for both composite and mask)
+                    save_filename = f'{(j + i):0{self.zero_padding}}'  # e.g. 00000023.jpg
 
-                            # Save composite image to the images sub-directory
-                            composite_filename = f'{save_filename}{self.output_type}'  # e.g. 00000023.jpg
-                            composite_path = self.output_dir / 'images' / composite_filename  # e.g. my_output_dir/images/00000023.jpg
-                            composite = composite.convert('RGB')  # remove alpha
-                            composite.save(composite_path)
+                    # Save composite image to the images sub-directory
+                    composite_filename = f'{save_filename}{self.output_type}'  # e.g. 00000023.jpg
+                    composite_path = self.output_dir / 'images' / composite_filename  # e.g. my_output_dir/images/00000023.jpg
+                    composite = composite.convert('RGB')  # remove alpha
+                    composite.save(composite_path)
 
-                            # Save the mask image to the masks sub-directory
-                            mask_filename = f'{save_filename}.png'  # masks are always png to avoid lossy compression
-                            mask_path = self.output_dir / 'masks' / mask_filename  # e.g. my_output_dir/masks/00000023.png
-                            mask.save(mask_path)
+                    # Save the mask image to the masks sub-directory
+                    mask_filename = f'{save_filename}.png'  # masks are always png to avoid lossy compression
+                    mask_path = self.output_dir / 'masks' / mask_filename  # e.g. my_output_dir/masks/00000023.png
+                    mask.save(mask_path)
 
-                            color_categories = dict()
-                            for fg in foregrounds:
-                                # Add category and color info
-                                mju.add_category(fg['category'], fg['super_category'])
-                                color_categories[str(fg['mask_rgb_color'])] = \
-                                    {
-                                            'category': fg['category'],
-                                            'super_category': fg['super_category']
-                                    }
+                    color_categories = dict()
+                    for fg in foregrounds:
+                        # Add category and color info
+                        mju.add_category(fg['category'], fg['super_category'])
+                        color_categories[str(fg['mask_rgb_color'])] = \
+                            {
+                                    'category': fg['category'],
+                                    'super_category': fg['super_category']
+                            }
 
-                            # Add the mask to MaskJsonUtils
-                            mju.add_mask(
-                                    composite_path.relative_to(self.output_dir).as_posix(),
-                                    mask_path.relative_to(self.output_dir).as_posix(),
-                                    color_categories
-                            )
+                    # Add the mask to MaskJsonUtils
+                    mju.add_mask(
+                            composite_path.relative_to(self.output_dir).as_posix(),
+                            mask_path.relative_to(self.output_dir).as_posix(),
+                            color_categories
+                    )
 
         # Write masks to json
         mju.write_masks_to_json()
@@ -483,7 +489,7 @@ if __name__ == "__main__":
                         transparent background (e.g. a grizzly bear on a transparent background).")
     parser.add_argument("--output_dir", type=str, dest="output_dir", required=True, help="The directory where images, masks, \
                         and json files will be placed")
-    parser.add_argument("--count", type=int, dest="count", required=True, help="number of composed images to create")
+    # parser.add_argument("--count", type=int, dest="count", required=False, help="number of composed images to create")
     parser.add_argument("--width", type=int, dest="width", required=True, help="output image pixel width")
     parser.add_argument("--height", type=int, dest="height", required=True, help="output image pixel height")
     parser.add_argument("--output_type", type=str, dest="output_type", help="png or jpg (default)")
