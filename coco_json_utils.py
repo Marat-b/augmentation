@@ -8,9 +8,11 @@ from skimage import measure, io
 from shapely.geometry import Polygon, MultiPolygon
 from PIL import Image
 
+
 class InfoJsonUtils():
     """ Creates an info object to describe a COCO dataset
     """
+
     def create_coco_info(self, description, url, version, year, contributor, date_created):
         """ Creates the "info" portion of COCO json
         """
@@ -24,9 +26,11 @@ class InfoJsonUtils():
 
         return info
 
+
 class LicenseJsonUtils():
     """ Creates a license object to describe a COCO dataset
     """
+
     def create_coco_license(self, url, license_id, name):
         """ Creates the "licenses" portion of COCO json
         """
@@ -37,9 +41,11 @@ class LicenseJsonUtils():
 
         return lic
 
+
 class CategoryJsonUtils():
     """ Creates a category object to describe a COCO dataset
     """
+
     def create_coco_category(self, supercategory, category_id, name):
         category = dict()
         category['supercategory'] = supercategory
@@ -48,9 +54,11 @@ class CategoryJsonUtils():
 
         return category
 
+
 class ImageJsonUtils():
     """ Creates an image object to describe a COCO dataset
     """
+
     def create_coco_image(self, image_path, image_id, image_license):
         """ Creates the "image" portion of COCO json
         """
@@ -67,9 +75,11 @@ class ImageJsonUtils():
 
         return image
 
+
 class AnnotationJsonUtils():
     """ Creates an annotation object to describe a COCO dataset
     """
+
     def __init__(self):
         self.annotation_id_index = 0
 
@@ -122,7 +132,7 @@ class AnnotationJsonUtils():
         self.isolated_masks = dict()
         for x in range(self.width):
             for y in range(self.height):
-                pixel_rgb = self.mask_image.getpixel((x,y))
+                pixel_rgb = self.mask_image.getpixel((x, y))
                 pixel_rgb_str = str(pixel_rgb)
 
                 # If the pixel is any color other than black, add it to a respective isolated image mask
@@ -169,12 +179,12 @@ class AnnotationJsonUtils():
                 poly = Polygon(contour)
                 poly = poly.simplify(1.0, preserve_topology=False)
 
-                if (poly.area > 16): # Ignore tiny polygons
+                if (poly.area > 16):  # Ignore tiny polygons
                     if (poly.geom_type == 'MultiPolygon'):
                         # if MultiPolygon, take the smallest convex Polygon containing all the points in the object
                         poly = poly.convex_hull
 
-                    if (poly.geom_type == 'Polygon'): # Ignore if still not a Polygon (could be a line or point)
+                    if (poly.geom_type == 'Polygon'):  # Ignore if still not a Polygon (could be a line or point)
                         polygons.append(poly)
                         segmentation = np.array(poly.exterior.coords).ravel().tolist()
                         annotation['segmentation'].append(segmentation)
@@ -203,6 +213,7 @@ class AnnotationJsonUtils():
         a_id = self.annotation_id_index
         self.annotation_id_index += 1
         return a_id
+
 
 class CocoJsonCreator():
     def validate_and_process_args(self, args):
@@ -240,12 +251,12 @@ class CocoJsonCreator():
         info_json = self.dataset_info['info']
         iju = InfoJsonUtils()
         return iju.create_coco_info(
-            description = info_json['description'],
-            version = info_json['version'],
-            url = info_json['url'],
-            year = info_json['year'],
-            contributor = info_json['contributor'],
-            date_created = info_json['date_created']
+                description=info_json['description'],
+                version=info_json['version'],
+                url=info_json['url'],
+                year=info_json['year'],
+                contributor=info_json['contributor'],
+                date_created=info_json['date_created']
         )
 
     def create_licenses(self):
@@ -254,9 +265,9 @@ class CocoJsonCreator():
         license_json = self.dataset_info['license']
         lju = LicenseJsonUtils()
         lic = lju.create_coco_license(
-            url = license_json['url'],
-            license_id = license_json['id'],
-            name = license_json['name']
+                url=license_json['url'],
+                license_id=license_json['id'],
+                name=license_json['name']
         )
         return [lic]
 
@@ -270,7 +281,7 @@ class CocoJsonCreator():
         cju = CategoryJsonUtils()
         categories = []
         category_ids_by_name = dict()
-        category_id = 1 # 0 is reserved for the background
+        category_id = 1  # 0 is reserved for the background
 
         super_categories = self.mask_definitions['super_categories']
         for super_category, _categories in super_categories.items():
@@ -301,9 +312,9 @@ class CocoJsonCreator():
             # Create a coco image json item
             image_path = Path(self.dataset_dir) / file_name
             image_obj = iju.create_coco_image(
-                image_path,
-                image_id,
-                image_license)
+                    image_path,
+                    image_id,
+                    image_license)
             image_objs.append(image_obj)
 
             mask_path = Path(self.dataset_dir) / mask_def['mask']
@@ -313,7 +324,7 @@ class CocoJsonCreator():
             for rgb_color, category in mask_def['color_categories'].items():
                 category_ids_by_rgb[rgb_color] = category_ids_by_name[category['category']]
             annotation_obj = aju.create_coco_annotations(mask_path, image_id, category_ids_by_rgb)
-            annotation_objs += annotation_obj # Add the new annotations to the existing list
+            annotation_objs += annotation_obj  # Add the new annotations to the existing list
             image_id += 1
 
         return image_objs, annotation_objs
@@ -327,11 +338,11 @@ class CocoJsonCreator():
         images, annotations = self.create_images_and_annotations(category_ids_by_name)
 
         master_obj = {
-            'info': info,
-            'licenses': licenses,
-            'images': images,
-            'annotations': annotations,
-            'categories': categories
+                'info': info,
+                'licenses': licenses,
+                'images': images,
+                'annotations': annotations,
+                'categories': categories
         }
 
         # Write the json to a file
@@ -341,15 +352,16 @@ class CocoJsonCreator():
 
         print(f'Annotations successfully written to file:\n{output_path}')
 
+
 if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Generate COCO JSON")
 
     parser.add_argument("-md", "--mask_definition", dest="mask_definition",
-        help="path to a mask definition JSON file, generated by MaskJsonUtils module")
+                        help="path to a mask definition JSON file, generated by MaskJsonUtils module")
     parser.add_argument("-di", "--dataset_info", dest="dataset_info",
-        help="path to a dataset info JSON file")
+                        help="path to a dataset info JSON file")
 
     args = parser.parse_args()
 
