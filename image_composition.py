@@ -268,7 +268,7 @@ class ImageComposition():
         fg_i = 0
         # for fg_i in range(num_foregrounds):
         #     print('~~~~~~~~~~~~~~~~~~~~~')
-        for super_category in tqdm(list(self.foregrounds_dict.keys())):
+        for super_category in list(self.foregrounds_dict.keys()):
             # Randomly choose a foreground
             # super_category = random.choice(list(self.foregrounds_dict.keys()))
             # print('+++++++++++++++++++')
@@ -276,7 +276,7 @@ class ImageComposition():
                 # category = random.choice(list(self.foregrounds_dict[super_category].keys()))
                 # foreground_path = random.choice(self.foregrounds_dict[super_category][category])
                 # print('-----------------')
-                for i, foreground_path in enumerate(self.foregrounds_dict[super_category][category]):
+                for i, foreground_path in enumerate(tqdm(self.foregrounds_dict[super_category][category])):
                     # print(f'foreground_path={foreground_path}')
 
                     # Get the color
