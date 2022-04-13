@@ -81,11 +81,11 @@ class AugmenForeground():
         self.aug_action(aug, file_path, 'affine')
 
     def scalex(self, file_path: str):
-        aug = iaa.ScaleX((0.1, 0.5))
+        aug = iaa.Affine(scale={'x': (0.1, 0.5)})
         self.aug_action(aug, file_path, 'scalex')
 
     def scaley(self, file_path: str):
-        aug = iaa.ScaleY((0.1, 0.5))
+        aug = iaa.Affine(scale={'y': (0.1, 0.5)})
         self.aug_action(aug, file_path, 'scaley')
 
     def piecewiseaffine(self, file_path: str):
@@ -93,13 +93,13 @@ class AugmenForeground():
         self.aug_action(aug, file_path, 'piecewiseaffine')
 
     def rotate(self, file_path: str):
-        aug = iaa.Rotate((45))
+        aug = iaa.Affine(rotate=(45))
         self.aug_action(aug, file_path, 'rotate45')
-        aug = iaa.Rotate((135))
+        aug = iaa.Affine(rotate=(135))
         self.aug_action(aug, file_path, 'rotate135')
-        aug = iaa.Rotate((225))
+        aug = iaa.Affine(rotate=(225))
         self.aug_action(aug, file_path, 'rotate225')
-        aug = iaa.Rotate((315))
+        aug = iaa.Affine(rotate=(315))
         self.aug_action(aug, file_path, 'rotate315')
 
     def rot90(self, file_path: str):
@@ -135,132 +135,132 @@ class AugmenForeground():
         self.aug_action(aug, file_path, 'flipud_rot90_3')
 
     def scalex_rot90(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Rot90((1, 1))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Rot90((1, 1))])
         self.aug_action(aug, file_path, 'scalex_rot90_1')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Rot90((2, 2))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Rot90((2, 2))])
         self.aug_action(aug, file_path, 'scalex_rot90_2')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Rot90((3, 3))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Rot90((3, 3))])
         self.aug_action(aug, file_path, 'scalex_rot90_3')
 
     def scalex_fliplr_rot90(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Fliplr(), iaa.Rot90((1, 1))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Fliplr(), iaa.Rot90((1, 1))])
         self.aug_action(aug, file_path, 'scalex_fliplr_rot90_1')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Fliplr(), iaa.Rot90((2, 2))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Fliplr(), iaa.Rot90((2, 2))])
         self.aug_action(aug, file_path, 'scalex_fliplr_rot90_2')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Fliplr(), iaa.Rot90((3, 3))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Fliplr(), iaa.Rot90((3, 3))])
         self.aug_action(aug, file_path, 'scalex_fliplr_rot90_3')
 
     def scalex_flipud_rot90(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Flipud(), iaa.Rot90((1, 1))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Flipud(), iaa.Rot90((1, 1))])
         self.aug_action(aug, file_path, 'scalex_flipud_rot90_1')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Flipud(), iaa.Rot90((2, 2))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Flipud(), iaa.Rot90((2, 2))])
         self.aug_action(aug, file_path, 'scalex_flipud_rot90_2')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Flipud(), iaa.Rot90((3, 3))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Flipud(), iaa.Rot90((3, 3))])
         self.aug_action(aug, file_path, 'scalex_flipud_rot90_3')
 
     def scaley_rot90(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Rot90((1, 1))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Rot90((1, 1))])
         self.aug_action(aug, file_path, 'scalex_rot90_1')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Rot90((2, 2))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Rot90((2, 2))])
         self.aug_action(aug, file_path, 'scalex_rot90_2')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Rot90((3, 3))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Rot90((3, 3))])
         self.aug_action(aug, file_path, 'scalex_rot90_3')
 
     def scaley_fliplr_rot90(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Fliplr(), iaa.Rot90((1, 1))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Fliplr(), iaa.Rot90((1, 1))])
         self.aug_action(aug, file_path, 'scaley_fliplr_rot90_1')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Fliplr(), iaa.Rot90((2, 2))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Fliplr(), iaa.Rot90((2, 2))])
         self.aug_action(aug, file_path, 'scaley_fliplr_rot90_2')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Fliplr(), iaa.Rot90((3, 3))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Fliplr(), iaa.Rot90((3, 3))])
         self.aug_action(aug, file_path, 'scaley_fliplr_rot90_3')
 
     def scaley_flipud_rot90(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Flipud(), iaa.Rot90((1, 1))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Flipud(), iaa.Rot90((1, 1))])
         self.aug_action(aug, file_path, 'scaley_flipud_rot90_1')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Flipud(), iaa.Rot90((2, 2))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Flipud(), iaa.Rot90((2, 2))])
         self.aug_action(aug, file_path, 'scaley_flipud_rot90_2')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Flipud(), iaa.Rot90((3, 3))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Flipud(), iaa.Rot90((3, 3))])
         self.aug_action(aug, file_path, 'scaley_flipud_rot90_3')
 
     ################## rotate ####################################################
     def fliplr_rotate(self, file_path: str):
-        aug = iaa.Sequential([iaa.Fliplr(), iaa.Rotate((45))])
+        aug = iaa.Sequential([iaa.Fliplr(), iaa.Affine(rotate=(45))])
         self.aug_action(aug, file_path, 'fliplr_rotate_45')
-        aug = iaa.Sequential([iaa.Fliplr(), iaa.Rotate((135))])
+        aug = iaa.Sequential([iaa.Fliplr(), iaa.Affine(rotate=(135))])
         self.aug_action(aug, file_path, 'fliplr_rotate_135')
-        aug = iaa.Sequential([iaa.Fliplr(), iaa.Rotate((225))])
+        aug = iaa.Sequential([iaa.Fliplr(), iaa.Affine(rotate=(225))])
         self.aug_action(aug, file_path, 'fliplr_rotate_225')
-        aug = iaa.Sequential([iaa.Fliplr(), iaa.Rotate((315))])
+        aug = iaa.Sequential([iaa.Fliplr(), iaa.Affine(rotate=(315))])
         self.aug_action(aug, file_path, 'fliplr_rotate_315')
 
     def flipud_rotate(self, file_path: str):
-        aug = iaa.Sequential([iaa.Flipud(), iaa.Rotate((45))])
+        aug = iaa.Sequential([iaa.Flipud(), iaa.Affine(rotate=(45))])
         self.aug_action(aug, file_path, 'flipud_rotate_45')
-        aug = iaa.Sequential([iaa.Flipud(), iaa.Rotate((135))])
+        aug = iaa.Sequential([iaa.Flipud(), iaa.Affine(rotate=(135))])
         self.aug_action(aug, file_path, 'flipud_rotate_135')
-        aug = iaa.Sequential([iaa.Flipud(), iaa.Rotate((225))])
+        aug = iaa.Sequential([iaa.Flipud(), iaa.Affine(rotate=(225))])
         self.aug_action(aug, file_path, 'flipud_rotate_225')
-        aug = iaa.Sequential([iaa.Flipud(), iaa.Rotate((315))])
+        aug = iaa.Sequential([iaa.Flipud(), iaa.Affine(rotate=(315))])
         self.aug_action(aug, file_path, 'flipud_rotate_315')
 
     def scalex_rotate(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Rotate((45))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Affine(rotate=(45))])
         self.aug_action(aug, file_path, 'scalex_rotate45')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Rotate((135))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Affine(rotate=(135))])
         self.aug_action(aug, file_path, 'scalex_rotate135')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Rotate((225))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Affine(rotate=(225))])
         self.aug_action(aug, file_path, 'scalex_rotate225')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Rotate((315))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Affine(rotate=(315))])
         self.aug_action(aug, file_path, 'scalex_rotate315')
 
     def scaley_rotate(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Rotate((45))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Affine(rotate=(45))])
         self.aug_action(aug, file_path, 'scaley_rotate45')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Rotate((135))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Affine(rotate=(135))])
         self.aug_action(aug, file_path, 'scaley_rotate135')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Rotate((225))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Affine(rotate=(225))])
         self.aug_action(aug, file_path, 'scaley_rotate225')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Rotate((315))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Affine(rotate=(315))])
         self.aug_action(aug, file_path, 'scaley_rotate315')
 
     def scalex_fliplr_rotate(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Fliplr(), iaa.Rotate((45))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Fliplr(), iaa.Affine(rotate=(45))])
         self.aug_action(aug, file_path, 'scalex_fliplr_rotate45')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Fliplr(), iaa.Rotate((135))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Fliplr(), iaa.Affine(rotate=(135))])
         self.aug_action(aug, file_path, 'scalex_fliplr_rotate135')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Fliplr(), iaa.Rotate((225))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Fliplr(), iaa.Affine(rotate=(225))])
         self.aug_action(aug, file_path, 'scalex_fliplr_rotate225')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Fliplr(), iaa.Rotate((315))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Fliplr(), iaa.Affine(rotate=(315))])
         self.aug_action(aug, file_path, 'scalex_fliplr_rotate315')
 
     def scalex_flipud_rotate(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Flipud(), iaa.Rotate((45))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Flipud(), iaa.Affine(rotate=(45))])
         self.aug_action(aug, file_path, 'scalex_flipud_rotate45')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Flipud(), iaa.Rotate((135))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Flipud(), iaa.Affine(rotate=(135))])
         self.aug_action(aug, file_path, 'scalex_flipud_rotate135')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Flipud(), iaa.Rotate((225))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Flipud(), iaa.Affine(rotate=(225))])
         self.aug_action(aug, file_path, 'scalex_flipud_rotate225')
-        aug = iaa.Sequential([iaa.ScaleX((0.1, 0.5)), iaa.Flipud(), iaa.Rotate((315))])
+        aug = iaa.Sequential([iaa.Affine(scale={'x': (0.1, 0.5)}), iaa.Flipud(), iaa.Affine(rotate=(315))])
         self.aug_action(aug, file_path, 'scalex_flipud_rotate315')
 
     def scaley_fliplr_rotate(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Fliplr(), iaa.Rotate((45))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Fliplr(), iaa.Affine(rotate=(45))])
         self.aug_action(aug, file_path, 'scaley_fliplr_rotate45')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Fliplr(), iaa.Rotate((135))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Fliplr(), iaa.Affine(rotate=(135))])
         self.aug_action(aug, file_path, 'scaley_fliplr_rotate135')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Fliplr(), iaa.Rotate((225))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Fliplr(), iaa.Affine(rotate=(225))])
         self.aug_action(aug, file_path, 'scaley_fliplr_rotate225')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Fliplr(), iaa.Rotate((315))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Fliplr(), iaa.Affine(rotate=(315))])
         self.aug_action(aug, file_path, 'scaley_fliplr_rotate315')
 
     def scaley_flipud_rotate(self, file_path: str):
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Flipud(), iaa.Rotate((45))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Flipud(), iaa.Affine(rotate=(45))])
         self.aug_action(aug, file_path, 'scaley_flipud_rotate45')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Flipud(), iaa.Rotate((135))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Flipud(), iaa.Affine(rotate=(135))])
         self.aug_action(aug, file_path, 'scaley_flipud_rotate135')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Flipud(), iaa.Rotate((225))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Flipud(), iaa.Affine(rotate=(225))])
         self.aug_action(aug, file_path, 'scaley_flipud_rotate225')
-        aug = iaa.Sequential([iaa.ScaleY((0.1, 0.5)), iaa.Flipud(), iaa.Rotate((315))])
+        aug = iaa.Sequential([iaa.Affine(scale={'y': (0.1, 0.5)}), iaa.Flipud(), iaa.Affine(rotate=(315))])
         self.aug_action(aug, file_path, 'scaley_flipud_rotate315')
 
     ################################################################################
