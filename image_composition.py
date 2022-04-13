@@ -161,14 +161,14 @@ class ImageComposition():
         self.images_output_dir.mkdir(exist_ok=True)
         self.masks_output_dir.mkdir(exist_ok=True)
 
-        if not self.silent:
-            # Check for existing contents in the images directory
-            for _ in self.images_output_dir.iterdir():
-                # We found something, check if the user wants to overwrite files or quit
-                should_continue = input('output_dir is not empty, files may be overwritten.\nContinue (y/n)? ').lower()
-                if should_continue != 'y' and should_continue != 'yes':
-                    quit()
-                break
+        # if not self.silent:
+        #     # Check for existing contents in the images directory
+        #     for _ in self.images_output_dir.iterdir():
+        #         # We found something, check if the user wants to overwrite files or quit
+        #         should_continue = input('output_dir is not empty, files may be overwritten.\nContinue (y/n)? ').lower()
+        #         if should_continue != 'y' and should_continue != 'yes':
+        #             quit()
+        #         break
 
     def _validate_and_process_input_directory(self):
         self.input_dir = Path(args.input_dir)
