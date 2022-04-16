@@ -61,8 +61,7 @@ class AugmenForeground():
         image = imageio.imread(file_path)
         image_aug = aug(image=image)
         image_rgb = self.to_tgb(image_aug)
-        augmented_new_file_name = 'a_{}'.format(new_file_name)
-        self.save_file(image_rgb, file_path, augmented_new_file_name)
+        self.save_file(image_rgb, file_path, new_file_name)
 
     def fliplr(self, file_path: str):
         """
@@ -287,7 +286,7 @@ class AugmenForeground():
         :param file_path: path of new file
         :return:
         """
-        file_template = '{}/{}_{}.png'
+        file_template = '{}/a_{}_{}.png'
         if self.out_dir is None:
             dirname = os.path.dirname(file_path)
         else:
