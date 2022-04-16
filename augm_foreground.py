@@ -69,11 +69,11 @@ class AugmenForeground():
         :param file_path:
         :return:
         """
-        aug = iaa.Fliplr()
+        aug = iaa.Fliplr(1.0)
         self.aug_action(aug, file_path, 'fliplr')
 
     def flipud(self, file_path: str):
-        aug = iaa.Flipud()
+        aug = iaa.Flipud(1.0)
         self.aug_action(aug, file_path, 'flipud')
 
     def affine(self, file_path: str):
