@@ -229,7 +229,8 @@ class ImageComposition():
                         self.foregrounds_dict[super_category][category] = []
 
                     self.foregrounds_dict[super_category][category].append(image_file)
-
+        # print(f'self.foregrounds_dict={self.foregrounds_dict}')
+        # exit()
         assert len(self.foregrounds_dict) > 0, 'no valid foregrounds were found'
 
     def _validate_and_process_backgrounds(self):
@@ -277,7 +278,8 @@ class ImageComposition():
                 # foreground_path = random.choice(self.foregrounds_dict[super_category][category])
                 # print('-----------------')
                 for i, foreground_path in enumerate(tqdm(self.foregrounds_dict[super_category][category])):
-                    # print(f'foreground_path={foreground_path}')
+                    # print(f'foreground_path={i}. {foreground_path}')
+                    # continue
 
                     # Get the color
                     mask_rgb_color = self.mask_colors[fg_i]
@@ -294,7 +296,7 @@ class ImageComposition():
                     composite, mask = self._compose_images(foregrounds, background_path)
 
                     # Create the file name (used for both composite and mask)
-                    save_filename = f'{(j + i):0{self.zero_padding}}'  # e.g. 00000023.jpg
+                    save_filename = f'{j}{i :0{self.zero_padding}}'  # e.g. 00000023.jpg
 
                     # Save composite image to the images sub-directory
                     composite_filename = f'{save_filename}{self.output_type}'  # e.g. 00000023.jpg

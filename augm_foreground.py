@@ -297,6 +297,8 @@ class AugmenForeground():
 
     def main(self, args):
         self.out_dir = args.output_directory
+        if self.out_dir is None:
+            self.out_dir = args.input_directory
         self.make_augmentation(args.input_directory)
 
 

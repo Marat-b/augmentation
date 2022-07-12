@@ -285,6 +285,7 @@ class CocoJsonCreator():
 
         super_categories = self.mask_definitions['super_categories']
         for super_category, _categories in super_categories.items():
+            _categories = sorted(_categories)
             for category_name in _categories:
                 categories.append(cju.create_coco_category(super_category, category_id, category_name))
                 category_ids_by_name[category_name] = category_id
