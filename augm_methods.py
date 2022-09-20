@@ -12,11 +12,11 @@ def main(args):
         # iaa.AdditiveGaussianNoise(per_channel=True, scale=40),
         # iaa.Dropout(per_channel=True, p=0.3),
         # iaa.CoarseDropout(p=0.4, size_percent=0.1),
-        iaa.SaltAndPepper(p=0.4),
+        # iaa.SaltAndPepper(p=0.4), # not for 128x128
         # iaa.CoarseSaltAndPepper(p=0.4, size_percent=0.2),
         # iaa.JpegCompression(compression=97),
         # iaa.blend_alpha(0.9, iaa.MedianBlur(31)),
-        iaa.GaussianBlur(sigma=13.0),
+        # iaa.GaussianBlur(sigma=3.0), # not for 128x128
         # iaa.MeanShiftBlur(spatial_radius=20.0),
         # iaa.SigmoidContrast(gain=10, cutoff=0.1),
         # iaa.LinearContrast(alpha=0.45),
@@ -30,10 +30,10 @@ def main(args):
         # iaa.Fog(),
         # iaa.Snowflakes(flake_size=(0.8, 0.9), speed=(0.01, 0.5), density=0.075),
         # iaa.Rain(drop_size=0.9)
-        iaa.MedianBlur(k=23),
+        iaa.MedianBlur(k=5),
         # iaa.MotionBlur(k=19),
         # iaa.imgcorruptlike.GlassBlur(severity=5, seed=2),
-        iaa.Voronoi(iaa.RegularGridPointsSampler(n_cols=100, n_rows=130))
+        # iaa.Voronoi(iaa.RegularGridPointsSampler(n_cols=100, n_rows=130)) # not for 128x128
     ]
     # index = 18
     # old_image = imageio.imread('{}{}'.format(path_in, files[i]))
