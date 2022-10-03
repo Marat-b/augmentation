@@ -275,7 +275,8 @@ class AugmenForeground():
         new_image[:, :, 0] = old_image[:, :, 2]
         new_image[:, :, 1] = old_image[:, :, 1]
         new_image[:, :, 2] = old_image[:, :, 0]
-        new_image[:, :, 3] = old_image[:, :, 3]
+        if not self.jpg_format:
+            new_image[:, :, 3] = old_image[:, :, 3]
         return new_image
 
     def save_file(self, image, file_path, new_name):
@@ -286,7 +287,10 @@ class AugmenForeground():
         :param file_path: path of new file
         :return:
         """
-        file_template = '{}/a_{}_{}.png'
+        if self.jpg_format:
+            file_template = '{}/a_{}_{}.jpg'
+        else:
+            file_template = '{}/a_{}_{}.png'
         if self.out_dir is None:
             dirname = os.path.dirname(file_path)
         else:
@@ -297,6 +301,7 @@ class AugmenForeground():
 
     def main(self, args):
         self.out_dir = args.output_directory
+        self.jpg_format = args.jpg_format
         if self.out_dir is None:
             self.out_dir = args.input_directory
         self.make_augmentation(args.input_directory)
@@ -310,6 +315,10 @@ if __name__ == "__main__":
                         help="input path to a PNG files and output path by default ")
     parser.add_argument("-od", "--output_dir", dest="output_directory", default=None,
                         help="another path to a augmented PNG files")
+    parser.add_argument(
+        "-jpg", "--jpg", dest="jpg_format", default=False,action='store_true',
+        help="another path to a augmented PNG files"
+        )
     args = parser.parse_args()
     af = AugmenForeground()
     af.main(args)
