@@ -410,8 +410,8 @@ class ImageComposition():
 
         # ** Apply Transformations **
         # Rotate the foreground
-        angle_degrees = random.randint(0, 359)
-        fg_image = fg_image.rotate(angle_degrees, resample=Image.BICUBIC, expand=True)
+        # angle_degrees = random.randint(0, 359)
+        # fg_image = fg_image.rotate(angle_degrees, resample=Image.BICUBIC, expand=True)
 
         # Scale the foreground
         # scale = 1  # random.random() * .5 + .5 # Pick something between .5 and 1  # changed by me
@@ -419,9 +419,9 @@ class ImageComposition():
         # fg_image = fg_image.resize(new_size, resample=Image.BICUBIC)
 
         # Adjust foreground brightness
-        brightness_factor = random.random() * .4 + .7  # Pick something between .7 and 1.1
-        enhancer = ImageEnhance.Brightness(fg_image)
-        fg_image = enhancer.enhance(brightness_factor)
+        # brightness_factor = random.random() * .4 + .7  # Pick something between .7 and 1.1
+        # enhancer = ImageEnhance.Brightness(fg_image)
+        # fg_image = enhancer.enhance(brightness_factor)
 
         # Add any other transformations here...
 
