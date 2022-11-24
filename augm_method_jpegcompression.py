@@ -77,18 +77,14 @@ if __name__ == '__main__':
 
         old_image = imageio.imread(join(input_dir, file))
         for i in range(len(augments)):
-            # old_image = iaa.Resize(0.5)(image=old_image)
-            # old_image = adjust_layers(old_image)
-            mask = old_image[:,:,[3]]
-            # print(f'mask.shape={mask.shape}')
             aug = augments2[i]
-            new_image = aug(image=old_image[:,:,:3])
-            # new_image = iaa.Resize(0.5)(image=new_image)
-            # new_image = augments2[i](image=new_image)
-            # print(f'new_image.shape={new_image.shape}, mask.shape={mask.shape}')
-            # new_image = iaa.Resize(4.0)(image=new_image)
-            # new_image = cv2.merge((new_image, mask))
-            new_image = np.concatenate((new_image, mask), axis=2)
+            if old_image.ndim == 4:
+                mask = old_image[:,:,[3]]
+                # print(f'mask.shape={mask.shape}')
+                new_image = aug(image=old_image[:,:,:3])
+                new_image = np.concatenate((new_image, mask), axis=2)
+            else:
+                new_image = aug(image=old_image)
             if suffix is None:
                 imageio.imwrite('{}.{}'.format(join(output_dir, file_name), ext), new_image)
             else:
