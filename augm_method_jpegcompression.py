@@ -78,7 +78,8 @@ if __name__ == '__main__':
         old_image = imageio.imread(join(input_dir, file))
         for i in range(len(augments)):
             aug = augments2[i]
-            if old_image.ndim == 4:
+            # print(f'old_image.shape={old_image.shape}')
+            if old_image.shape[2] == 4:
                 mask = old_image[:,:,[3]]
                 # print(f'mask.shape={mask.shape}')
                 new_image = aug(image=old_image[:,:,:3])
